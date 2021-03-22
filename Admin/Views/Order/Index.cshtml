@@ -1,0 +1,39 @@
+﻿@model List<Order>
+@{
+    ViewData["Title"] = "Beställningar";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Beställningar</h1>
+    <table>
+        <tr>
+            <th>Beställning</th>
+            <th>Datum</th>
+            <th>Varor</th>
+            <th></th>
+        </tr>
+        @foreach (var order in Model)
+        {
+            <tr>
+                <td>@Html.ActionLink(order.Id.ToString(), "details", "order", new { id = order.Id })</td>
+                <td>@order.OrderDate.ToShortDateString()</td>
+                <td>
+                    <ul>
+                    @foreach(var orderline in order.OrderLines)
+                    {
+                        <li>
+                            @orderline.ProductId, @orderline.Quantity st
+                        </li>
+                    }
+                    </ul>
+                </td>
+                <td>
+                    <form asp-controller="Order" asp-action="Delete" method="post">
+                        <input type="hidden" name="id" value="@order.Id">
+                        <button>Ta bort</button>
+                    </form>
+                </td>
+            </tr>
+        }
+    </table>
+</div>

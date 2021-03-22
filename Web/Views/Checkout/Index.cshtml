@@ -1,0 +1,48 @@
+﻿@{
+    decimal orderTotal = 0;
+    Cart cart = ViewBag.Cart;
+    User user = ViewBag.User;
+}
+
+<h1>Kassa</h1>
+<h3>Min beställning</h3>
+
+<table class="checkout-table">
+    <tr>
+        <th>Product</th>
+        <th>Pris</th>
+        <th>Antal</th>
+        <th>Totalt</th>
+    </tr>
+    @foreach (var cartLine in cart.CartLines)
+    {
+    var totalPrice = cartLine.Product.Price * cartLine.Quantity;
+    orderTotal += totalPrice;
+    <tr>
+        <td>@cartLine.Product.Name</td>
+        <td>@cartLine.Product.Price kr</td>
+        <td>@cartLine.Quantity</td>
+        <td>@totalPrice kr</td>
+    </tr>
+    }
+    <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td>@orderTotal kr</td>
+    </tr>
+</table>
+
+<h3>Leveransadress</h3>
+<p>
+    @user.Person.Firstname @user.Person.Lastname<br>
+    @user.Address.Street<br>
+    @user.Address.Zip @user.Address.City
+</p>
+
+<h3>Betalning</h3>
+<input type="radio" checked disabled> Faktura
+
+<form asp-controller="Checkout" asp-action="Checkout" method="post">
+    <button type="submit">Slutför beställning</button>
+</form>

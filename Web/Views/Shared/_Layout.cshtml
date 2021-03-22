@@ -1,0 +1,55 @@
+﻿<!DOCTYPE html>
+<html lang="sv">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Web</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" />
+</head>
+<body>
+    <div class="wrap">
+        <header class="header">
+            <h1 class="logo">
+                <a asp-area="" asp-controller="Home" asp-action="Index">Foodie</a>
+            </h1>
+            <nav class="top-nav">
+                <ul>
+                    <li><a asp-area="" asp-controller="Home" asp-action="Index">Hem</a></li>
+                    <li><a asp-area="" asp-controller="Home" asp-action="About">Om oss</a></li>
+                    <li><a asp-area="" asp-controller="Cart" asp-action="Index">Kundvagn</a></li>
+                @if(ViewBag.Loggedin == true)
+                {
+                    <li><a asp-area="" asp-controller="User" asp-action="Index">Min sida</a></li>
+                    <li><a asp-area="" asp-controller="Login" asp-action="Logout">Logga ut</a></li>
+                }
+                else
+                {
+                    <li><a asp-area="" asp-controller="Login" asp-action="Index">Logga in</a></li>
+                }
+                </ul>
+            </nav>
+        </header>
+    @if(ViewBag.Categories != null)
+    {
+        <nav class="category-list">
+            <ul>
+            @foreach(var category in ViewBag.Categories as List<Category>)
+            {
+                <li>@Html.ActionLink(category.Name, "details", "category", new { id = category.Id })</li>
+            }
+            </ul>
+        </nav>
+    }
+            <main class="main-content">
+                @RenderBody()
+            </main>
+
+        <footer class="border-top footer text-muted">
+                &copy; 2021 - Foodie
+        </footer>
+    </div>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

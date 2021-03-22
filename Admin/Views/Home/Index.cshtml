@@ -1,0 +1,12 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Foodie administration</h1>
+    <ul>
+        <li>@Html.ActionLink("Beställningar", "index", "order", null)</li>
+        <li>@Html.ActionLink("Kategorier", "index", "category", null)</li>
+        <li>@Html.ActionLink("Produkter", "index", "product", null)</li>
+    </ul>
+</div>

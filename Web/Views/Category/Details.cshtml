@@ -1,0 +1,26 @@
+﻿@model Category
+
+<h1>@Model.Name</h1>
+
+<div class="products">
+@foreach(var product in Model.Products)
+{
+    <div class="product-box">
+        <div class="image">
+            <img src="~/images/noimage.png" alt="@product.Name">
+        </div>
+        <div class="info">
+            <h3>@Html.ActionLink(product.Name, "details", "product", new { id = product.Id })</h3>
+            <div>
+                <form asp-controller="Cart" asp-action="UpdateCart" method="post">
+                    <input type="hidden" name="quantity" value="1">
+                    <input type="hidden" name="productId" value="@product.Id">
+                    <span>@product.Price kr</span>
+                    <button type="submit">Köp</button>
+                </form>
+            </div>
+        </div>
+    </div>
+}
+</div>
+

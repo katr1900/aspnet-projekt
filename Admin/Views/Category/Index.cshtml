@@ -1,0 +1,27 @@
+﻿@model List<Category>
+@{
+    ViewData["Title"] = "Kategorier";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Kategorier</h1>
+    <table>
+        <tr>
+            <th>Kategori</th>
+            <th></th>
+        </tr>
+        @foreach (var category in Model)
+        {
+            <tr>
+                <td>@Html.ActionLink(category.Name, "details", "category", new { id = category.Id })</td>
+                <td>
+                    <form asp-controller="Category" asp-action="Delete" method="post">
+                        <input type="hidden" name="id" value="@category.Id">
+                        <button>Ta bort</button>
+                    </form>
+                </td>
+            </tr>
+        }
+    </table>
+    <a asp-area="" asp-controller="Category" asp-action="Create">Lägg till ny kategori</a>
+</div>

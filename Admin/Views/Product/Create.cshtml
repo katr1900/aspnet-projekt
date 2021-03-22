@@ -1,0 +1,26 @@
+﻿@model Product
+@{
+    ViewData["Title"] = "Ny produkt";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Lägg till ny produkt</h1>
+    <form method="post">
+        <label>
+            Namn
+            <input type="text" name="name" value="">
+        </label>
+
+        <label>
+            Pris
+            <input type="text" name="price" value="">
+        </label>
+        <select name="categoryID">
+            @foreach(var category in ViewBag.Categories)
+            {
+            <option value="@category.Id">@category.Name</option>
+            }
+        </select>
+        <button type="submit">Lägg till</button>
+    </form>
+</div>

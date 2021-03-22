@@ -1,0 +1,12 @@
+﻿@model Product
+@{
+}
+
+<h1>@Model.Name</h1>
+
+<form asp-controller="Cart" asp-action="UpdateCart" method="post">
+    Kvantitet
+    <input type="number" name="quantity" value="1" min="1" max="99">
+    <input type="hidden" name="productId" value="@Model.Id">
+    <button type="submit">Köp</button>
+</form>

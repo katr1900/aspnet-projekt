@@ -1,0 +1,48 @@
+﻿@model Cart
+
+<h1>Kundvagn</h1>
+@if (Model.CartLines.Count == 0)
+{
+    <h2>Din kundvagn är tom</h2>
+}
+else
+{
+    decimal orderTotal = 0;
+    <h2>Dina varor</h2>
+    <table class="cart-table">
+        <tr>
+            <th>Product</th>
+            <th>Pris</th>
+            <th>Antal</th>
+            <th>Totalt</th>
+        </tr>
+    @foreach (var cartLine in Model.CartLines)
+    {
+        var totalPrice = cartLine.Product.Price * cartLine.Quantity;
+        orderTotal += totalPrice;
+        <tr>
+            <td>@cartLine.Product.Name</td>
+            <td>@cartLine.Product.Price kr</td>
+            <td>
+                <form asp-controller="Cart" asp-action="UpdateCart" method="post">
+                    <input type="hidden" name="productId" value="@cartLine.Product.Id">
+                    <input type="number" value="@cartLine.Quantity" name="quantity" min="0" max="99">
+                    <button type="submit">Ändra</button>
+                </form>
+            </td>
+            <td>@totalPrice kr</td>
+        </tr>
+    }
+        <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td>@orderTotal kr</td>
+        </tr>
+    </table>
+
+    <div>
+        @Html.ActionLink("Töm kundvagnen", "emptycart")
+        @Html.ActionLink("Till Kassan", "index", "checkout", null)
+    </div>
+}

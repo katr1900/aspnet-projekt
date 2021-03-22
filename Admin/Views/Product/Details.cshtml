@@ -1,0 +1,22 @@
+@model Product
+@{
+    ViewData["Title"] = Model.Name;
+}
+
+<div class="text-center">
+    <h1 class="display-4">@Model.Name</h1>
+    <form method="post">
+        <label>
+            Namn
+            <input type="text" name="name" value="@Model.Name">
+        </label>
+
+        <label>
+            Pris
+            <input type="text" name="price" value="@Model.Price">
+        </label>
+        <input type="hidden" name="id" value="@Model.Id">
+        <input type="hidden" name="categoryId" value="@Model.CategoryId">
+        <button type="submit">Uppdatera</button>
+    </form>
+</div>
